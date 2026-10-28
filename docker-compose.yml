@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  agente-sutran-do:
+    build: .
+    image: agente-sutran-do:latest
+    container_name: agente-sutran-do
+    restart: unless-stopped
+    environment:
+      - TZ=America/Lima
+    volumes:
+      - "./appsettings.json:/app/appsettings.json:ro"
+    networks:
+      - app-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  app-net:
+    external: true
